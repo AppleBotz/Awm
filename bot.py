@@ -136,7 +136,7 @@ async def VidWatermarkAdder(bot, cmd):
 		await db.add_user(cmd.from_user.id)
 		await bot.send_message(
 			Config.LOG_CHANNEL,
-			f"#NEW_USER: \n\nNew User [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id})\nstarted @{Config.BOT_USERNAME} !!"
+			f"#NEW_USER: \n\nNew User -[{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id})\nstarted @{Config.BOT_USERNAME} !!"
 		)
 	if Config.UPDATES_CHANNEL:
 		fsub = await handle_force_subscribe(bot, cmd)
@@ -184,7 +184,7 @@ async def VidWatermarkAdder(bot, cmd):
 	if not os.path.isdir(dl_loc):
 		os.makedirs(dl_loc)
 	the_media = None
-	user_info = f"**UserID:** #id{cmd.from_user.id}\n**Name:** [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id})"
+	user_info = f"**UserID:** #id{cmd.from_user.id}\n**Name:** -[{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id})"
 	## --- Done --- ##
 	try:
 		forwarded_video = await cmd.forward(Config.LOG_CHANNEL)
@@ -343,7 +343,7 @@ async def CancelWatermarkAdder(bot, cmd):
 		await db.add_user(cmd.from_user.id)
 		await bot.send_message(
 			Config.LOG_CHANNEL,
-			f"#NEW_USER: \n\nNew User [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id}) started @{Config.BOT_USERNAME} !!"
+			f"#NEW_USER: \n\nNew User -[{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id}) started @{Config.BOT_USERNAME} !!"
 		)
 	if not int(cmd.from_user.id) == Config.OWNER_ID:
 		await cmd.reply_text("You Can't Use That Command!")
@@ -471,7 +471,7 @@ async def button(bot, cmd: CallbackQuery):
 					disable_web_page_preview=True
 				)
 				return
-		await bot.send_message(chat_id=Config.LOG_CHANNEL, text=f"#SETTINGS_SET: [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id}) Changed Settings!\n\n**User ID:** #id{cmd.from_user.id}\n**Data:** `{cb_data}`", parse_mode="Markdown", disable_web_page_preview=True, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Ban User", callback_data=f"ban_{cmd.from_user.id}")]]))
+		await bot.send_message(chat_id=Config.LOG_CHANNEL, text=f"#SETTINGS_SET: -[{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id}) Changed Settings!\n\n**User ID:** #id{cmd.from_user.id}\n**Data:** `{cb_data}`", parse_mode="Markdown", disable_web_page_preview=True, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Ban User", callback_data=f"ban_{cmd.from_user.id}")]]))
 		new_position = cb_data.split("_", 1)[1]
 		if cb_data.startswith("position_"):
 			await db.set_position(cmd.from_user.id, new_position)
